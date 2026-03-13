@@ -1,0 +1,77 @@
+import java.util.*;
+
+class Solution {
+
+    // Function to find first occurrence
+    public static int firstOccurrence(int[] arr, int n, int k) {
+
+        int low = 0;
+        int high = n - 1;
+        int first = -1;
+
+        while (low <= high) {
+
+            int mid = (low + high) / 2;
+
+            if (arr[mid] == k) {
+                first = mid;       // store answer
+                high = mid - 1;    // move LEFT
+            }
+            else if (arr[mid] < k) {
+                low = mid + 1;
+            }
+            else {
+                high = mid - 1;
+            }
+        }
+
+        return first;
+    }
+
+    // Function to find last occurrence
+    public static int lastOccurrence(int[] arr, int n, int k) {
+
+        int low = 0;
+        int high = n - 1;
+        int last = -1;
+
+        while (low <= high) {
+
+            int mid = (low + high) / 2;
+
+            if (arr[mid] == k) {
+                last = mid;      // store answer
+                low = mid + 1;   // move RIGHT
+            }
+            else if (arr[mid] < k) {
+                low = mid + 1;
+            }
+            else {
+                high = mid - 1;
+            }
+        }
+
+        return last;
+    }
+
+    // Function to return both first and last positions
+    public static int[] firstAndLastPosition(int[] arr, int n, int k) {
+
+        int first = firstOccurrence(arr, n, k);
+        int last = lastOccurrence(arr, n, k);
+
+        return new int[]{first, last};
+    }
+
+    public static void main(String[] args) {
+
+        int[] arr = {1, 2, 4, 4, 4, 5, 6};
+        int n = arr.length;
+        int k = 4;
+
+        int[] ans = firstAndLastPosition(arr, n, k);
+
+        System.out.println("First Occurrence: " + ans[0]);
+        System.out.println("Last Occurrence: " + ans[1]);
+    }
+}
