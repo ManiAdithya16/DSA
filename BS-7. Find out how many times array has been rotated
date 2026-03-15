@@ -1,0 +1,49 @@
+public class Solution {
+
+    public static int findKRotation(int[] arr) {
+
+        int low = 0;                  // start index
+        int high = arr.length - 1;    // end index
+
+        int ans = Integer.MAX_VALUE;  // store minimum value
+        int index = -1;               // store index of minimum value
+
+        while (low <= high) {         // binary search loop
+
+            // If subarray is already sorted
+            if (arr[low] <= arr[high]) {
+                if (arr[low] < ans) {   // check if current low is smaller
+                    ans = arr[low];    // update minimum value
+                    index = low;       // update index of minimum
+                }
+                break;                 // entire part is sorted, no need to continue
+            }
+
+            int mid = (low + high) / 2;  // middle index
+
+            // Check if left half is sorted
+            if (arr[low] <= arr[mid]) {
+                if (arr[low] < ans) {   // left half is sorted, update min if needed
+                    ans = arr[low];
+                    index = low;
+                }
+                low = mid + 1;          // search in right half
+            } 
+            // Right half must be sorted
+            else {
+                if (arr[mid] < ans) {   // mid could be minimum
+                    ans = arr[mid];
+                    index = mid;
+                }
+                high = mid - 1;         // search in left half
+            }
+        }
+
+        return index;  // index = number of rotations
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {7,8,9,1,2,3,4,5,6};
+        System.out.println("Array rotated " + findKRotation(arr) + " times");
+    }
+}
