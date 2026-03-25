@@ -1,45 +1,25 @@
-import java.util.*;
+class Solution {
+    public int minCost(int n, int[] cutsArr) {
+        int c = cutsArr.length;
+        int[] cuts = new int[c+2];
 
-public class Solution {
-
-    public int minCost(int n, int[] cuts) {
-
-        int c = cuts.length;
-
-        // new array with 0 and n
-        int[] newCuts = new int[c + 2];
-        newCuts[0] = 0;
-        newCuts[c + 1] = n;
-
-        for (int i = 0; i < c; i++) {
-            newCuts[i + 1] = cuts[i];
+        cuts[0] = 0;
+        cuts[c+1] = n;
+        for(int i=0;i<c;i++){
+            cuts[i+1] = cutsArr[i];
         }
-
-        Arrays.sort(newCuts);
-
-        int[][] dp = new int[c + 2][c + 2];
-
-        // fill dp
-        for (int i = c; i >= 1; i--) {
-            for (int j = 1; j <= c; j++) {
-
-                if (i > j) continue;
-
+        Arrays.sort(cuts);
+        int[][] dp = new int[c+2][c+2];
+        for(int i=c;i>=1;i--){
+            for(int j=i;j<=c;j++){
                 int mini = Integer.MAX_VALUE;
-
-                for (int k = i; k <= j; k++) {
-
-                    int cost = newCuts[j + 1] - newCuts[i - 1]
-                             + dp[i][k - 1]
-                             + dp[k + 1][j];
-
+                for(int ind=i;ind<=j;ind++){
+                    int cost = cuts[j+1]-cuts[i-1] +dp[i][ind-1] + dp[ind+1][j];
                     mini = Math.min(mini, cost);
                 }
-
                 dp[i][j] = mini;
             }
         }
-
         return dp[1][c];
     }
 }
