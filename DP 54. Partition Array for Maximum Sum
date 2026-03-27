@@ -1,0 +1,19 @@
+class Solution {
+    public int maxSumAfterPartitioning(int[] arr, int k) {
+        int n = arr.length;
+        int[] dp = new int[n + 1];
+        dp[n] = 0;
+        for(int i=n-1;i>=0;i--){
+            int maxele =0;
+            int maxsum = 0;
+            for(int j=i;j<Math.min(i+k, n);j++){
+                maxele = Math.max(maxele, arr[j]);
+                int len = j-i+1;
+                int sum = (maxele * len) + dp[j+1];
+                maxsum = Math.max(maxsum, sum);
+            }
+            dp[i] = maxsum;
+        }
+        return dp[0];
+    }
+}
