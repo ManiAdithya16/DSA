@@ -1,0 +1,26 @@
+class Solution {
+    public int majorityElement(int[] nums) {
+        int n= nums.length;
+        int ele =0;
+        int cnt =0;
+        for(int num: nums){
+            if(cnt==0){
+                ele = num;
+            }
+            if(num == ele){
+                cnt++;
+            }else{
+                cnt--;
+            }
+
+        }
+        int frq=0;
+        for(int num:nums){
+            if(num == ele) frq++;
+        }
+        if(frq > n/2){
+            return ele;
+        }
+        return -1;
+    }
+}
