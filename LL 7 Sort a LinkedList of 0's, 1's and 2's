@@ -39,10 +39,10 @@ class Solution {
             temp = temp.next;
         }
         zero.next = (onehead.next != null) ? onehead.next : twohead.next;
-        onehead.next = twohead.next;
-        twohead.next = null;
+        one.next = twohead.next;
+        two.next = null;
         
          return zerohead.next;
     }
-    
+   
 }
