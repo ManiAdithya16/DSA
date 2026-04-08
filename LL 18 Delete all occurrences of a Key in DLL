@@ -1,0 +1,29 @@
+/* Structure of Doubly Linked List
+class Node
+{
+    int data;
+    Node next;
+    Node prev;
+}*/
+class Solution {
+    static Node deleteAllOccurOfX(Node head, int x) {
+    Node temp = head;
+    while(temp!= null){
+        if(temp.data == x){
+            if(temp == head){
+                head = head.next;
+            }
+            Node nextnode = temp.next;
+            Node prevnode = temp.prev;
+            
+            if(nextnode != null) nextnode.prev = prevnode;
+            if(prevnode != null) prevnode.next = nextnode;
+            
+            temp = nextnode;
+        }else{
+            temp = temp.next;
+        }
+    }
+    return head;
+    }
+}
