@@ -14,16 +14,10 @@ class Solution {
             if(i>=k){
                 cnt2[s.charAt(i-k) - 'a']--;
             }
-            if(matches(cnt1, cnt2)){
+            if(Arrays.equals(cnt1, cnt2)){
                 ans.add(i-k+1);
             }
         }
         return ans;
-    }
-    private boolean matches(int[] a, int[] b){
-        for(int i =0;i<26;i++){
-            if(a[i] != b[i]) return false;
-        }
-        return true;
     }
 }
